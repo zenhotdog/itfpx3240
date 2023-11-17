@@ -3,6 +3,25 @@
 <head>
     <title>Home Page | Capella Volunteers</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
+    <script type="text/javascript">
+        var bannerImages = ["banner1.jpg", "banner2.jpg", "banner3.jpg"];
+        var currentBanner = 0;
+        var preloadBannerImages = [];
+
+        window.onload = function() {
+            for (var i = 0; i < bannerImages.length; i++) {
+                preloadBannerImages[i] = new Image();
+                preloadBannerImages[i].src = bannerImages[i];
+            }
+            cycleBanner();
+        };
+
+        function cycleBanner() {
+            currentBanner = (currentBanner + 1) % bannerImages.length;
+            document.getElementById("bannerImg").src = bannerImages[currentBanner];
+            setTimeout(cycleBanner, 3000);
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -22,9 +41,7 @@
 
     <section id="bannerImages">
         <p>Banner Images</p>
-        <img src="banner1.jpg" alt="Banner"/>
-        <img src="banner2.jpg" alt="Banner"/>
-        <img src="banner3.jpg" alt="Banner"/>
+        <img id="bannerImg" src="banner1.jpg" alt="Banner"/>
     </section>
 
     <main>
@@ -38,3 +55,4 @@
     </footer>
 </body>
 </html>
+

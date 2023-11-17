@@ -2,8 +2,14 @@
 <html lang="en-US">
 
 <head>
-    <title>Invitation Page</title>
+    <title>Gallery Page | Capella Volunteers</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
+    <style>
+        .gallery img:hover {
+            transform: scale(1.05); /* Slightly increase the size of the image */
+            transition: transform 0.3s ease;
+        }
+    </style>
 </head>
 
 <body>
@@ -13,56 +19,49 @@
         </div>
         <nav>
             <ul class="topnav">
-                <li><a href="index.html">Home</a>
-                </li>
-                <li><a href="invitation.html">Invitation</a>
-                </li>
-				<li><a href="volunteer.html">Volunteers</a>
-                </li>
-                <li><a href="gallery.html"  class="active">Gallery</a>
-                </li>
-                <li><a href="registration.html">Registration</a>
-                </li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="invitation.html">Invitation</a></li>
+                <li><a href="volunteer.html">Volunteers</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="registration.html">Registration</a></li>
             </ul>
-
         </nav>
     </header>
+
     <section id="gallery">
+        <div class="gallery">
+            <a target="_blank" href="firefighter.jpg">
+                <img src="firefighter.jpg" alt="Firefighter" width="300" height="200">
+            </a>
+            <div class="desc">Firefighter in action</div>
+        </div>
 
-<div class="gallery">
-  <a target="_blank" href="firefighter.jpg">
-    <img src="firefighter.jpg" alt="firefighter" width="300" height="200">
-  </a>
-  <div class="desc">Add a description of the image here</div>
-</div>
+        <div class="gallery">
+            <a target="_blank" href="work.jpg">
+                <img src="work.jpg" alt="Work" width="300" height="200">
+            </a>
+            <div class="desc">Volunteers at work</div>
+        </div>
 
-<div class="gallery">
-  <a target="_blank" href="work.jpg">
-    <img src="work.jpg" alt="work" width="300" height="200">
-  </a>
-  <div class="desc">Add a description of the image here</div>
-</div>
+        <div class="gallery">
+            <a target="_blank" href="silhouette.jpg">
+                <img src="silhouette.jpg" alt="Silhouette" width="300" height="200">
+            </a>
+            <div class="desc">Silhouette of a volunteer</div>
+        </div>
 
-<div class="gallery">
-  <a target="_blank" href="silhouette.jpg">
-    <img src="silhouette.jpg" alt="silhouette" width="300" height="200">
-  </a>
-  <div class="desc">Add a description of the image here</div>
-</div>
-
-<div class="gallery">
-  <a target="_blank" href="event.jpg">
-    <img src="event.jpg" alt="event" width="300" height="200">
-  </a>
-  <div class="desc">Add a description of the image here</div>
-</div>
-
+        <div class="gallery">
+            <a target="_blank" href="event.jpg">
+                <img src="event.jpg" alt="Event" width="300" height="200">
+            </a>
+            <div class="desc">Community event</div>
+        </div>
     </section>
 
-
-
-    <footer>This events site is for IT-FPX3240
+    <footer>
+        <p>This events site is for IT-FPX3240.</p>
     </footer>
 </body>
 
 </html>
+

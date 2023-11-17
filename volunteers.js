@@ -4,12 +4,17 @@ var volunteerArray = [];
 
 var displayVolunteers = function () {   
     // display the volunteers in the text area
-    $("volunteerList").value = volunteerArray.join("\n");
+    //$("volunteerList").value = volunteerArray.join("\n");
 
 	// comment out the line above change this to a loop instead to loop through the array.
+        var volunteerText = "";
+        for (let i = 0; i < volunteerArray.length; i++) {
+            volunteerText += (i + 1) + ". " + volunteerArray[i] + "\n";
+        }
+        $("volunteerList").value = volunteerText;
+    };
+    
 	
-	
-};
 
 var addVolunteer = function () {
     // get the data from the form
@@ -29,20 +34,20 @@ var addVolunteer = function () {
 
 
 var deleteVolunteer = function () {
-    // get the data from the form (hint: use the same format as from the add).
+    var volunteerString = $("first_name").value + " " + $("last_name").value;
 
-    // remove the string from the array (hint, loop through the entire list, compare the string with the item in the array.
-	
-   
-	 
-    // display the volunteers and clear the add form
+    var index = volunteerArray.indexOf(volunteerString);
+    if (index !== -1) {
+        volunteerArray.splice(index, 1);
+    }
+
     displayVolunteers();
     
-    // get the delete form ready for next entry
     $("first_name").value = "";
     $("last_name").value = "";
     $("first_name").focus();
 };
+
 
 var clearList = function () {   
     // delete the data from the arrays
@@ -58,10 +63,18 @@ var clearList = function () {
 };
 
 var sortList = function () {   
-    // sort the scores
-    volunteerArray.sort();
+    volunteerArray.sort(function(a, b) {
+        var nameA = a.split(" ")[0].toUpperCase(); // get first name and convert to uppercase
+        var nameB = b.split(" ")[0].toUpperCase(); // get first name and convert to uppercase
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    });
     
-    // display the scores
     displayVolunteers();    
 };
 

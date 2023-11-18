@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-US">
-
 <head>
     <title>Interests Page</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
-
 <body>
     <header>
         <div class="top">
@@ -27,18 +25,29 @@
 
         </nav>
     </header>
-    <section id="pageFormContent">
 
-            <!--
-			Process content to display content on screen
-			
-			-->
-            
-
+    <section id="confirmationContent">
+        <h2>Registration Confirmation</h2>
+        <div id="formDataDisplay"></div>
     </section>
 
-    <footer>This events site is for IT-FPX3240.
-    </footer>
-</body>
+    <footer>This events site is for IT-FPX3240.</footer>
 
+    <script>
+        window.onload = function() {
+            var formDataDisplay = document.getElementById('formDataDisplay');
+            var cookies = document.cookie.split('; ');
+            if (cookies.length === 0 || cookies[0] === "") {
+                formDataDisplay.innerHTML = "No registration data found.";
+            } else {
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookiePair = cookies[i].split('=');
+                    if (cookiePair[1]) {
+                        formDataDisplay.innerHTML += cookiePair[0] + ": " + decodeURIComponent(cookiePair[1]) + "<br>";
+                    }
+                }
+            }
+        };
+    </script>
+</body>
 </html>

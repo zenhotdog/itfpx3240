@@ -30,9 +30,8 @@
             </ul>
         </nav>
     </header>
-    <section id="pageForm">
-        <form action="#" onsubmit="return validateForm()">
-	
+     <section id="pageForm">
+        <form id="registrationForm" onsubmit="return handleFormSubmit();">
             <label for="userName">Username: <span class="error" id="errorUserName"></span></label>
             <input type="text" id="userName" name="userName" placeholder="Enter your Username">
             
@@ -62,11 +61,11 @@
             
 
             <label>Sign up for newsletter:</label>
-            <div>
+	    <div>
     		<input type="radio" id="signUpNewsletterYes" name="signUpNewsletter" value="Yes" checked>
     		<label for="signUpNewsletterYes">Yes</label>
-   		<input type="radio" id="signUpNewsletterNo" name="signUpNewsletter" value="No">
-   	 	<label for="signUpNewsletterNo">No</label>
+    		<input type="radio" id="signUpNewsletterNo" name="signUpNewsletter" value="No">
+    		<label for="signUpNewsletterNo">No</label>
 	    </div>
 
             <input type="submit" value="Next step">
@@ -77,39 +76,48 @@
     </footer>
 
     <script>
-        function validateForm() {
-            var isValid = true;
+    function handleFormSubmit() {
+        if (validateForm()) {
+            saveFormDataToCookies();
+            window.location.href = "confirm.html";
+            return false; // Prevent default form submission
+        }
+        return false; // Prevent form submission if validation fails
+    }
 
-            // Clear previous error messages
-            document.querySelectorAll('.error').forEach(function(el) {
-                el.textContent = '';
-            });
+    function validateForm() {
+        var isValid = true;
 
-            // Function to display an error message
-            function showError(inputId, message) {
-                document.getElementById('error' + inputId).textContent = message;
-                isValid = false;
-            }
+        // Clear previous error messages
+        document.querySelectorAll('.error').forEach(function(el) {
+            el.textContent = '';
+        });
 
-            // Validate Username
-            var username = document.getElementById('userName').value;
-            if (!username.match(/^[a-zA-Z0-9]+$/)) {
-                showError('UserName', 'Username must only contain letters and numbers.');
-            }
+        // Function to display an error message
+        function showError(inputId, message) {
+            document.getElementById('error' + inputId).textContent = message;
+            isValid = false;
+        }
 
-            // Validate Password
-            var password = document.getElementById('password').value;
-            if (password.length < 8) {
-                showError('Password', 'Password must be at least 8 characters long.');
-            }
+        // Validate Username
+        var username = document.getElementById('userName').value;
+        if (!username.match(/^[a-zA-Z0-9]+$/)) {
+            showError('UserName', 'Username must only contain letters and numbers.');
+        }
 
-            // Validate Password Verification
-            var passwordVerify = document.getElementById('passwordVerify').value;
-            if (password !== passwordVerify) {
-                showError('PasswordVerify', 'Passwords do not match.');
-            }
+        // Validate Password
+        var password = document.getElementById('password').value;
+        if (password.length < 8) {
+            showError('Password', 'Password must be at least 8 characters long.');
+        }
 
-            // Validate Email
+        // Validate Password Verification
+        var passwordVerify = document.getElementById('passwordVerify').value;
+        if (password !== passwordVerify) {
+            showError('PasswordVerify', 'Passwords do not match.');
+        }
+
+        // Validate Email
         var email = document.getElementById('email').value;
         if (!email) {
             showError('Email', 'Email is required.');
@@ -125,7 +133,7 @@
             showError('PhoneNumber', 'Phone number must be in the format (xxx) xxx-xxxx.');
         }
 
-            // Validate First Name
+        // Validate First Name
         var firstName = document.getElementById('firstName').value;
         if (!firstName) {
             showError('FirstName', 'First Name is required.');
@@ -141,8 +149,19 @@
             showError('LastName', 'Last Name should not contain special characters.');
         }
 
-            return isValid;
+        return isValid;
+    }
+
+    function saveFormDataToCookies() {
+        var formElements = document.getElementById("registrationForm").elements;
+        for (var i = 0; i < formElements.length; i++) {
+            if (formElements[i].type !== "submit") {
+                document.cookie = formElements[i].name + "=" + encodeURIComponent(formElements[i].value) + "; path=/";
+            }
         }
-    </script>
+    }
+</script>
+
+
 </body>
 </html>

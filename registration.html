@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-US">
-
 <head>
-    <title>Invitation Page</title>
+    <title>Registration Page | Capella Volunteers</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
+    <style>
+        .error {
+            color: red;
+            font-size: 0.8em;
+        }
+    </style>
 </head>
-
 <body>
     <header>
         <div class="top">
@@ -24,45 +28,116 @@
                 <li><a href="registration.html" class="active">Registration</a>
                 </li>
             </ul>
-
         </nav>
     </header>
     <section id="pageForm">
-        <form action="#">
+        <form action="#" onsubmit="return validateForm()">
             <label for="userName">Username:</label>
-            <input type="text" name="userName" placeholder="Enter your Username" />
+            <input type="text" id="userName" name="userName" placeholder="Enter your Username" />
+            <span class="error" id="errorUserName"></span>
 
-            <label for="Password">Password:
-            </label>
-            <input type="password" name="password" placeholder="Enter your Password" />
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your Password" />
+            <span class="error" id="errorPassword"></span>
 
-            <label for="passwordVerify">Verify your Password:
-            </label>
-            <input type="password" name="passwordVerify" placeholder="Enter in your Password again" />
+            <label for="passwordVerify">Verify your Password:</label>
+            <input type="password" id="passwordVerify" name="passwordVerify" placeholder="Enter in your Password again" />
+            <span class="error" id="errorPasswordVerify"></span>
 
-            <label for="firstName">First Name:
-            </label>
-            <input type="text" name="firstName" placeholder="Enter your First Name" />
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" placeholder="Enter your First Name" />
+            <span class="error" id="errorFirstName"></span>
 
-            <label for="hostName">Last Name:
-            </label>
-            <input type="text" name="lastName" placeholder="Enter your Last Name" />
-            <label for="email">Email:
-            </label>
-            <input type="text" name="email" placeholder="Enter your Email Address" />
-			<label for="phoneNumber">Phone Number
-            </label>
-            <input type="text" name="lastName" placeholder="Enter your Phone Number" />
-			<label for="signUpNewsletter">Sign up for newsletter:
-            </label>
-			  <input type="radio" name="signUpNewsletter" value="Yes" checked> Yes 
-				<input type="radio" name="signUpNewsletter" value="No"> No
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Enter your Last Name" />
+            <span class="error" id="errorLastName"></span>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your Email Address" />
+            <span class="error" id="errorEmail"></span>
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter your Phone Number" />
+            <span class="error" id="errorPhoneNumber"></span>
+
+            <label for="signUpNewsletter">Sign up for newsletter:</label>
+            <input type="radio" id="signUpNewsletterYes" name="signUpNewsletter" value="Yes" checked> Yes
+            <input type="radio" id="signUpNewsletterNo" name="signUpNewsletter" value="No"> No
+
             <input type="submit" value="Next step">
         </form>
     </section>
-
-    <footer>This events site is for IT-FPX3240.
+    <footer>
+        <p>This events site is for IT-FPX3240.</p>
     </footer>
-</body>
 
+    <script>
+        function validateForm() {
+            var isValid = true;
+
+            // Clear previous error messages
+            document.querySelectorAll('.error').forEach(function(el) {
+                el.textContent = '';
+            });
+
+            // Function to display an error message
+            function showError(inputId, message) {
+                document.getElementById('error' + inputId).textContent = message;
+                isValid = false;
+            }
+
+            // Validate Username
+            var username = document.getElementById('userName').value;
+            if (!username.match(/^[a-zA-Z0-9]+$/)) {
+                showError('UserName', 'Username must only contain letters and numbers.');
+            }
+
+            // Validate Password
+            var password = document.getElementById('password').value;
+            if (password.length < 8) {
+                showError('Password', 'Password must be at least 8 characters long.');
+            }
+
+            // Validate Password Verification
+            var passwordVerify = document.getElementById('passwordVerify').value;
+            if (password !== passwordVerify) {
+                showError('PasswordVerify', 'Passwords do not match.');
+            }
+
+             // Validate Email
+        var email = document.getElementById('email').value;
+        if (!email) {
+            showError('Email', 'Email is required.');
+        } else if (!email.match(/^\w+@\w+\.\w+$/)) {
+            showError('Email', 'Invalid email format.');
+        }
+
+        // Validate Phone Number
+        var phoneNumber = document.getElementById('phoneNumber').value;
+        if (!phoneNumber) {
+            showError('PhoneNumber', 'Phone number is required.');
+        } else if (!phoneNumber.match(/^\(\d{3}\) \d{3}-\d{4}$/)) {
+            showError('PhoneNumber', 'Phone number must be in the format (xxx) xxx-xxxx.');
+        }
+
+            // Validate First Name
+        var firstName = document.getElementById('firstName').value;
+        if (!firstName) {
+            showError('FirstName', 'First Name is required.');
+        } else if (/[^a-zA-Z -]/.test(firstName)) {
+            showError('FirstName', 'First Name should not contain special characters.');
+        }
+
+        // Validate Last Name
+        var lastName = document.getElementById('lastName').value;
+        if (!lastName) {
+            showError('LastName', 'Last Name is required.');
+        } else if (/[^a-zA-Z -]/.test(lastName)) {
+            showError('LastName', 'Last Name should not contain special characters.');
+        }
+
+            return isValid;
+        }
+    </script>
+</body>
 </html>
